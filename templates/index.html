@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find nearby waste recycling centers easily by entering your location or using your current location.">
+  <title>Nearby Waste Centers</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!-- Google Places API for Autocomplete -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1at8Me8fp-Ql6-ybPwwt4aOmAPUjztIw&libraries=places" async defer></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Waste Info Finder</h2>
+
+    <!-- Input for location with autocomplete -->
+    <input id="location" placeholder="Enter location manually (optional)" aria-label="Enter location manually" />
+
+    <!-- Buttons for actions -->
+    <button onclick="fetchWasteInfo()" aria-label="Search for nearby recycling centers">Search</button>
+    <button onclick="useMyLocation()" aria-label="Use your current location">Use My Location</button>
+
+    <!-- Loading spinner, initially hidden -->
+    <div id="loading-spinner" class="loading-spinner" style="display:none;">
+      <span>Loading...</span>
+    </div>
+
+    <!-- Results will be displayed here -->
+    <div id="result"></div>
+  </div>
+  
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  
+  <script>
+    // Initialize Google Autocomplete for the location input field
+    function initAutocomplete() {
+      const input = document.getElementById('location');
+      const autocomplete = new google.maps.places.Autocomplete(input);
+
+      // Restrict the search to a specific country or location (optional)
+      autocomplete.setComponentRestrictions({ 'country': ['in'] }); // Example for India
+
+      // Add a listener to handle the place selection
+      autocomplete.addListener('place_changed', function() {
+        const place = autocomplete.getPlace();
+        if (place.geometry) {
+          // If a place is selected, you can get its details, e.g., address, lat, lng
+          console.log('Place details:', place);
+        }
+      });
+    }
+
+    // Initialize autocomplete on page load
+    window.onload = initAutocomplete;
+  </script>
+</body>
+</html>
