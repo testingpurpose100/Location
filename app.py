@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 
 app = Flask(__name__)
 CORS(app)
-
-GOOGLE_API_KEY = 'AIzaSyA1at8Me8fp-Ql6-ybPwwt4aOmAPUjztIw'  # Replace with your real API key'
 
 @app.route('/')
 def index():
@@ -103,8 +106,5 @@ def get_place_description(place):
 
     return ", ".join(description)
 
-import os
-
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Get PORT from environment
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(debug=True, port=5000)
