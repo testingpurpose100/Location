@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
   <!-- Google Places API for Autocomplete (Inject API Key securely via Flask) -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initAutocomplete"></script>
 
   <!-- Your script file with all other functionalities -->
   <script src="{{ url_for('static', filename='script.js') }}"></script>
