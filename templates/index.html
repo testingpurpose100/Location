@@ -7,8 +7,10 @@
   <title>Nearby Waste Centers</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-  <!-- Google Places API for Autocomplete -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1at8Me8fp-Ql6-ybPwwt4aOmAPUjztIw&libraries=places" async defer></script>
+  <!-- Google Places API for Autocomplete (Inject API Key securely via Flask) -->
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&libraries=places&callback=initAutocomplete" async defer></script>
+  <!-- Your script file with all other functionalities -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
   <div class="container">
@@ -29,30 +31,5 @@
     <!-- Results will be displayed here -->
     <div id="result"></div>
   </div>
-  
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
-  
-  <script>
-    // Initialize Google Autocomplete for the location input field
-    function initAutocomplete() {
-      const input = document.getElementById('location');
-      const autocomplete = new google.maps.places.Autocomplete(input);
-
-      // Restrict the search to a specific country or location (optional)
-      autocomplete.setComponentRestrictions({ 'country': ['in'] }); // Example for India
-
-      // Add a listener to handle the place selection
-      autocomplete.addListener('place_changed', function() {
-        const place = autocomplete.getPlace();
-        if (place.geometry) {
-          // If a place is selected, you can get its details, e.g., address, lat, lng
-          console.log('Place details:', place);
-        }
-      });
-    }
-
-    // Initialize autocomplete on page load
-    window.onload = initAutocomplete;
-  </script>
 </body>
 </html>
