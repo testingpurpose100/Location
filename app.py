@@ -12,8 +12,8 @@ CORS(app)
 
 @app.route('/')
 def index():
-    google_api_key = os.getenv('GOOGLE_API_KEY')
-    return render_template('index.html', GOOGLE_API_KEY=google_api_key)
+    api_key = os.getenv('GOOGLE_MAPS_API_KEY')  # Get the API key from .env
+    return render_template('index.html', api_key=api_key)
 
 @app.route('/waste-info', methods=['POST'])
 def waste_info():
