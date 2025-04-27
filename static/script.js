@@ -127,7 +127,7 @@ function initAutocomplete() {
   // Initialize Google Places Autocomplete only once
   autocomplete = new google.maps.places.Autocomplete(input, {
     fields: ['place_id', 'name', 'formatted_address', 'geometry'],
-    types: ['(cities)'],
+    types: ['geocode'],
   });
 
   autocomplete.addListener('place_changed', function() {
