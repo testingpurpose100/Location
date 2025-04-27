@@ -18,7 +18,9 @@
     <h2>Waste Info Finder</h2>
 
     <!-- Input for location with autocomplete -->
-    <input id="location" placeholder="Enter location manually (optional)" aria-label="Enter location manually" />
+    <label for="location">Enter a location:</label>
+    <input id="location" placeholder="Enter location manually (optional)" aria-label="Enter location manually" autocomplete="off" required />
+
 
     <!-- Buttons for actions -->
     <button onclick="fetchWasteInfo()" aria-label="Search for nearby recycling centers">Search</button>
