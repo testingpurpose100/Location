@@ -12,7 +12,8 @@ CORS(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    google_api_key = os.getenv('GOOGLE_API_KEY')
+    return render_template('index.html', GOOGLE_API_KEY=google_api_key)
 
 @app.route('/waste-info', methods=['POST'])
 def waste_info():
@@ -32,8 +33,13 @@ def waste_info():
         geo_response = requests.get(geo_url, params=geo_params)
         geo_data = geo_response.json()
 
+        # NEW: Check if status is OK first
+        if geo_data.get('status') != "OK":
+            return jsonify({"error": "Geocoding failed. Please check the location or try again later."}), 400
+
         if not geo_data.get('results'):
             return jsonify({"error": "Location not found."}), 404
+
 
         lat = geo_data['results'][0]['geometry']['location']['lat']
         lng = geo_data['results'][0]['geometry']['location']['lng']
