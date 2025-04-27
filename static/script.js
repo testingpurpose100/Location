@@ -119,3 +119,27 @@ function useMyLocation() {
     loadingSpinner.style.display = "none";  // Hide loading spinner
   }
 }
+let autocomplete;
+
+function initAutocomplete() {
+  const input = document.getElementById('location');
+  
+  // Initialize the Google Places Autocomplete API without using invalid properties
+  autocomplete = new google.maps.places.Autocomplete(input, {
+    fields: ['place_id', 'name', 'formatted_address', 'geometry'],  // Fields to return
+    types: ['(cities)'],  // You can adjust this based on the type you want (cities, regions, etc.)
+  });
+
+  // Add an event listener to handle the selection of a place
+  autocomplete.addListener('place_changed', function() {
+    const place = autocomplete.getPlace();
+    if (place.geometry) {
+      // If the place has geometry (latitude, longitude), do something with it
+      console.log('Selected Place:', place);
+    }
+  });
+}
+
+
+// Ensure the autocomplete function is initialized after the window has loaded
+window.onload = initAutocomplete;
